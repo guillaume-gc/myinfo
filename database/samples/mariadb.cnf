@@ -1,0 +1,5 @@
+[client]
+database = myinfo
+user = myinfo
+password = myinfo
+default-character-set = utf8
