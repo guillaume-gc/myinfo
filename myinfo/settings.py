@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myinfo_app.apps.MyinfoAppConfig',
-    'accounts.apps.AccountsConfig',
+    'myinfo_auth'
 ]
 
 MIDDLEWARE = [
@@ -127,3 +127,5 @@ STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+AUTH_USER_MODEL = 'myinfo_auth.User'
