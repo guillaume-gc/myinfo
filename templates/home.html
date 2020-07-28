@@ -1,0 +1,19 @@
+<!-- templates/home.html-->
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        Hi {{ user.email }}!
+        <form>
+            <label for="email">New email :</label>
+            <input id="email" type="text">
+            <input type="submit" value="Submit">
+        </form>
+        <p><a href="{% url 'logout' %}">logout</a></p>
+    {% else %}
+        <p>You are not logged in</p>
+        <a href="{% url 'login' %}">login</a>
+    {% endif %}
+{% endblock %}
