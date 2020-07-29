@@ -6,7 +6,7 @@ With MyInfo, get your personal info and edit them!
 - Clone the directory.
 - Create a python environement (version 3.8.5 recommanded) with listed python packages (see detailed guide).
 - Add secret information (see detailed guide).
-- Start server: `python manage.py runserver 8000` (in root directory).
+- Start server: `python manage.py runserver 8000` (within the project root directory).
 
 The project should use the following URL by default:
 ```
@@ -17,13 +17,13 @@ http://127.0.0.1:8000/
 
 ## Python packages
 
-List of used Python packages (probably need to clean up):
+List of used Python packages used (probably need to clean it up):
 
 ```
 Django asgiref certifi chardet coverage coveralls defusedxml django-allauth django-nose djangorestframework docopt gunicorn idna mysqlclient nose oauthlib pip python3-openid pytz requests requests-oauthlib setuptools sqlparse urllib3 whitenoise
 ```
 
-Detailed list:
+Detailed list, in case there is a version issue:
 ```
 PACKAGE VERSION
 Django	3.0.8
@@ -63,18 +63,18 @@ database/mariadb.cnf and database/reset_users
 
 ### Django Settings
 
-Execute this command, in projet root directory:
+Execute the following command, within the projet root directory:
 ```
 python manage.py shell -c "from django.core.management import utils; print(utils.get_random_secret_key())"
 ```
 
-Copy generated secret key (for example : `nyq*sfbt0c)(1fg8$^%#db3wd3451*=nz-h@nbi++fs-wm^%-4`).
+Copy the generated secret key (for example : `nyq*sfbt0c)(1fg8$^%#db3wd3451*=nz-h@nbi++fs-wm^%-4`).
 
 Find the following line in myinfo/settings.py:
 ```
 SECRET_KEY = 'SECRET_KEY'
 ```
-Past generated key. Example:
+Past the generated key. Example:
 ```
 SECRET_KEY = 'nyq*sfbt0c)(1fg8$^%#db3wd3451*=nz-h@nbi++fs-wm^%-4'
 ```
