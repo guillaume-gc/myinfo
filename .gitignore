@@ -1,6 +1,6 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/pycharm,django,python
-# Edit at https://www.toptal.com/developers/gitignore?templates=pycharm,django,python
+# Created by https://www.toptal.com/developers/gitignore/api/django,python,pycharm,vuejs
+# Edit at https://www.toptal.com/developers/gitignore?templates=django,python,pycharm,vuejs
 
 ### Django ###
 *.log
@@ -68,6 +68,7 @@ coverage.xml
 *.py,cover
 .hypothesis/
 .pytest_cache/
+pytestdebug.log
 
 # Translations
 *.mo
@@ -83,6 +84,7 @@ instance/
 
 # Sphinx documentation
 docs/_build/
+doc/_build/
 
 # PyBuilder
 target/
@@ -226,12 +228,15 @@ fabric.properties
 # *.ipr
 
 # Sonarlint plugin
+# https://plugins.jetbrains.com/plugin/7973-sonarlint
 .idea/**/sonarlint/
 
 # SonarQube Plugin
+# https://plugins.jetbrains.com/plugin/7238-sonarqube-community-plugin
 .idea/**/sonarIssues.xml
 
 # Markdown Navigator plugin
+# https://plugins.jetbrains.com/plugin/7896-markdown-navigator-enhanced
 .idea/**/markdown-navigator.xml
 .idea/**/markdown-navigator-enh.xml
 .idea/**/markdown-navigator/
@@ -239,6 +244,10 @@ fabric.properties
 # Cache file creation bug
 # See https://youtrack.jetbrains.com/issue/JBR-2257
 .idea/$CACHE_FILE$
+
+# CodeStream plugin
+# https://plugins.jetbrains.com/plugin/12206-codestream
+.idea/codestream.xml
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
@@ -299,4 +308,11 @@ fabric.properties
 
 # pytype static type analyzer
 
-# End of https://www.toptal.com/developers/gitignore/api/pycharm,django,python
+### Vuejs ###
+# Recommended template: Node.gitignore
+
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# End of https://www.toptal.com/developers/gitignore/api/django,python,pycharm,vuejs

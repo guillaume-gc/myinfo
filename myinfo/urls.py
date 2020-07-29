@@ -31,4 +31,5 @@ urlpatterns = [
     path('auth/', include('myinfo_auth.urls')),
     path('auth/', include('django.contrib.auth.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('api/me/', views.MeView.as_view()),
 ]
