@@ -1,4 +1,4 @@
-from django.http import Http404
+from django.http import Http404, HttpResponseForbidden, HttpResponse
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -21,10 +21,7 @@ class SignUp(generic.CreateView):
 
 class IsOwnerOrAdmin(BasePermission):
     def has_object_permission(self, request, view, obj):
-        try:
-            return request.user.is_superuser or obj == request.user
-        except AttributeError:
-            return request.user.is_superuser
+        return request.user.is_authenticated and (request.user.is_superuser or obj == request.user)
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -46,25 +43,6 @@ class UserViewSet(viewsets.ModelViewSet):
 
         return [permission() for permission in permission_classes]
 
-    # @action(detail=False)
-    # def me(self, request, pk=None):
-    #     user = User.objects.get(email=request.user.email)
-    #
-    #     serializer = self.get_serializer(user, many=False)
-    #     return Response(serializer.data)
-    #
-    # @me.mapping.put
-    # def me_put(self, request, pk=None):
-    #     user = self.get_object()
-    #     serializer = UserSerializer(data=request.data)
-    #
-    #     if serializer.is_valid():
-    #         user.save()
-    #         return Response(serializer.data)
-    #     else:
-    #         return Response(serializer.errors,
-    #                         status=status.HTTP_400_BAD_REQUEST)
-
 
 class MeView(APIView):
     """
@@ -83,7 +61,7 @@ class MeView(APIView):
     def get_object(request):
         try:
             return User.objects.get(email=request.user.email)
-        except User.DoesNotExist:
+        except (User.DoesNotExist, AttributeError):
             raise Http404
 
     def get(self, request):
@@ -93,11 +71,14 @@ class MeView(APIView):
         return Response(serializer.data)
 
     def put(self, request):
-        user = self.get_object(request)
-        serializer = UserSerializer(user, data=request.data, context={'request': request})
-        if serializer.is_valid():
-            serializer.save()
+        try:
+            user = self.get_object(request)
+            serializer = UserSerializer(user, data=request.data, context={'request': request})
+            if serializer.is_valid():
+                serializer.save()
 
-            return Response(serializer.data)
+                return Response(serializer.data)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except (User.DoesNotExist, AttributeError):
+            raise Http404

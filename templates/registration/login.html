@@ -1,17 +1,40 @@
 <!-- templates/registration/login.html -->
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     Login
 {% endblock %}
 
 {% block content %}
-    <h2>Login</h2>
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Login</button>
-    </form>
+    <b-container class="bv-example-row bv-example-row-flex-cols login-master">
+        <b-row>
+            <b-col align-self="stretch side-logo-master">
+                <img class="side-logo" src="{% static "myinfo_auth/img/logo.svg" %}" alt="Mini Logo"/>
+            </b-col>
+            <b-col align-self="stretch">
+                <b-card
+                        title="Welcome"
+                        style="max-width: 20rem;"
+                        class="sign-in-card"
+                >
+                    <b-card-text>
+                        <form class="sign-in" method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit">Login</button>
+                        </form>
 
-    <a href="{% url 'signup' %}">Sign Up</a>
-{% endblock %}
+
+                        Don't have an account?
+                        <a href="{% url 'signup' %}">Sign Up</a>
+                    </b-card-text>
+                </b-card>
+
+            </b-col>
+        </b-row>
+    </b-container>
+
+    <script type="module" src="{% static "myinfo_auth/js/global.js" %}"></script>
+    <script type="module" src="{% static "myinfo_auth/js/login.js" %}"></script>
+{% endblock %}<!-- templates/registration/login.html -->

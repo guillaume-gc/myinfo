@@ -1,49 +1,57 @@
 <!-- templates/home.html-->
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}MyInfo Home{% endblock %}
 
 {% block content %}
-    <div id="app">
-        {% if user.is_authenticated %}
-            Hi [[ user.email ]]!
-            <b-button v-b-modal.modal-info>Change info</b-button>
+    <img class="logo" src="{% static "myinfo_auth/img/logo.svg" %}" alt="Mini Logo"/>
+    {% if user.is_authenticated %}
+        <div class="centered-text"><h3>Hi, [[ user.email ]]!</h3></div>
+        <div class="centered-div">
+            <b-button v-b-modal.modal-info>Change my Info</b-button>
+        </div>
 
-            <b-modal
-                    id="modal-info"
-                    ref="modal"
-                    title="Change Your Info"
-                    @show="resetModal"
-                    @hidden="resetModal"
-                    @ok="handleOk"
-            >
-                <form ref="form" @submit.stop.prevent="handleSubmit">
-                    <b-form-group
+        <b-modal
+                id="modal-info"
+                ref="modal"
+                title="Change my Info"
+                @show="resetModal"
+                @hidden="resetModal"
+                @ok="handleOk"
+        >
+            <form ref="form" @submit.stop.prevent="handleSubmit">
+                <b-form-group
+                        :state="emailState"
+                        label="Email"
+                        label-for="email-input"
+                        invalid-feedback="Email invalid"
+                >
+                    <b-form-input
+                            id="email-input"
+                            v-model="email"
                             :state="emailState"
-                            label="Email"
-                            label-for="email-input"
-                            invalid-feedback="Email invalid"
-                    >
-                        <b-form-input
-                                id="email-input"
-                                v-model="email"
-                                :state="emailState"
-                                required
-                                type="email"
-                        ></b-form-input>
-                    </b-form-group>
-                </form>
-            </b-modal>
-            </div>
+                            required
+                            type="email"
+                    ></b-form-input>
+                </b-form-group>
+            </form>
+        </b-modal>
+    {% else %}
+        <div class="centered-text"><h3>You are not logged in.</h3></div>
 
-            <p><a href="{% url 'logout' %}">logout</a></p>
-        {% else %}
-            <p>You are not logged in</p>
-            <a href="{% url 'login' %}">login</a>
-        {% endif %}
-    </div>
+        <b-container>
+            <b-row class="justify-content-md-center">
+                <b-col col lg="2">
+                    <b-button class="button" href="{% url 'signup' %}">Sign Up</b-button>
+                </b-col>
+                <b-col col lg="2">
+                    <b-button class="button" href="{% url 'login' %}">Sign In</b-button>
+                </b-col>
+            </b-row>
+        </b-container>
+    {% endif %}
 
-    {% load static %}
     <script type="module" src="{% static "myinfo_auth/js/global.js" %}"></script>
     <script type="module" src="{% static "myinfo_auth/js/home.js" %}"></script>
 {% endblock %}
