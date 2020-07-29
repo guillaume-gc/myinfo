@@ -9,7 +9,9 @@ domReady.then(() => {
 				user: {},
 				newEmail: '',
 				email: '',
-				emailState: ''
+				emailState: '',
+				ajax_success_message: '',
+				ajax_error_message: ''
 			}
 		},
 		mounted() {
@@ -55,9 +57,38 @@ domReady.then(() => {
 						this.user = result["data"]
 						this.$nextTick(() => {
 							this.$bvModal.hide('modal-info')
+
+							this.$bvToast.toast('Success.', {
+								title: 'Change my Info',
+								autoHideDelay: 1000,
+								appendToast: false,
+								variant: 'success'
+							})
 						})
 					})
-					.catch(error => console.warn(error));
+					.catch((error) => {
+						try {
+							let error_message = error.response.data["email"][0]
+							console.warn(error_message);
+
+							this.$bvToast.toast('Failure: ' + error_message, {
+								title: 'Change my Info',
+								autoHideDelay: 3000,
+								appendToast: false,
+								variant: 'danger'
+							});
+						} catch (e) {
+							this.$bvToast.toast('An unknown error happened', {
+								title: 'Change my Info',
+								autoHideDelay: 3000,
+								appendToast: false,
+								variant: 'danger'
+							});
+
+							console.error(e);
+						}
+
+					});
 			}
 		}
 	});
