@@ -7,7 +7,9 @@ domReady.then(() => {
 		data() {
 			return {
 				user: {},
-				newEmail: ""
+				newEmail: '',
+				email: '',
+				emailState: ''
 			}
 		},
 		mounted() {
@@ -18,12 +20,44 @@ domReady.then(() => {
 		},
 		methods: {
 			change_info_click: function () {
-				axios.put('/api/me/', {
+				return axios.put('/api/me/', {
 					"email": this.newEmail
-				}).then((result) => {
-					console.log(result)
-					this.user = result["data"]
-				});
+				})
+					.then((result) => {
+						this.user = result["data"]
+					})
+					.catch(error => console.warn(error));
+			},
+			checkFormValidity() {
+				const valid = this.$refs.form.checkValidity()
+				this.emailState = valid
+				return valid
+			},
+			resetModal() {
+				this.email = ''
+				this.emailState = null
+			},
+			handleOk(bvModalEvt) {
+				// Prevent modal from closing
+				bvModalEvt.preventDefault()
+				// Trigger submit handler
+				this.handleSubmit()
+			},
+			handleSubmit() {
+				// Exit when the form isn't valid
+				if (!this.checkFormValidity()) {
+					return
+				}
+				axios.put('/api/me/', {
+					"email": this.email
+				})
+					.then((result) => {
+						this.user = result["data"]
+						this.$nextTick(() => {
+							this.$bvModal.hide('modal-info')
+						})
+					})
+					.catch(error => console.warn(error));
 			}
 		}
 	});

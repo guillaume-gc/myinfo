@@ -7,11 +7,35 @@
     <div id="app">
         {% if user.is_authenticated %}
             Hi [[ user.email ]]!
-            <form id="change-info" onsubmit="return false">
-                <label for="email">New email</label>
-                <input v-model="newEmail" id="email" type="text">
-                <input type="submit" v-on:click="change_info_click()">
-            </form>
+            <b-button v-b-modal.modal-info>Change info</b-button>
+
+            <b-modal
+                    id="modal-info"
+                    ref="modal"
+                    title="Change Your Info"
+                    @show="resetModal"
+                    @hidden="resetModal"
+                    @ok="handleOk"
+            >
+                <form ref="form" @submit.stop.prevent="handleSubmit">
+                    <b-form-group
+                            :state="emailState"
+                            label="Email"
+                            label-for="email-input"
+                            invalid-feedback="Email invalid"
+                    >
+                        <b-form-input
+                                id="email-input"
+                                v-model="email"
+                                :state="emailState"
+                                required
+                                type="email"
+                        ></b-form-input>
+                    </b-form-group>
+                </form>
+            </b-modal>
+            </div>
+
             <p><a href="{% url 'logout' %}">logout</a></p>
         {% else %}
             <p>You are not logged in</p>
@@ -20,6 +44,6 @@
     </div>
 
     {% load static %}
-    <script type="module" src="{%  static "myinfo_auth/js/global.js" %}"></script>
-    <script type="module" src="{%  static "myinfo_auth/js/home.js" %}"></script>
+    <script type="module" src="{% static "myinfo_auth/js/global.js" %}"></script>
+    <script type="module" src="{% static "myinfo_auth/js/home.js" %}"></script>
 {% endblock %}
