@@ -1,19 +1,25 @@
 <!-- templates/home.html-->
 {% extends 'base.html' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}MyInfo Home{% endblock %}
 
 {% block content %}
-    {% if user.is_authenticated %}
-        Hi {{ user.email }}!
-        <form>
-            <label for="email">New email :</label>
-            <input id="email" type="text">
-            <input type="submit" value="Submit">
-        </form>
-        <p><a href="{% url 'logout' %}">logout</a></p>
-    {% else %}
-        <p>You are not logged in</p>
-        <a href="{% url 'login' %}">login</a>
-    {% endif %}
+    <div id="app">
+        {% if user.is_authenticated %}
+            Hi [[ user.email ]]!
+            <form id="change-info" onsubmit="return false">
+                <label for="email">New email</label>
+                <input v-model="newEmail" id="email" type="text">
+                <input type="submit" v-on:click="change_info_click()">
+            </form>
+            <p><a href="{% url 'logout' %}">logout</a></p>
+        {% else %}
+            <p>You are not logged in</p>
+            <a href="{% url 'login' %}">login</a>
+        {% endif %}
+    </div>
+
+    {% load static %}
+    <script type="module" src="{%  static "myinfo_auth/js/global.js" %}"></script>
+    <script type="module" src="{%  static "myinfo_auth/js/home.js" %}"></script>
 {% endblock %}

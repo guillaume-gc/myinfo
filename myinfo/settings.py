@@ -144,3 +144,7 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
 AUTH_USER_MODEL = 'myinfo_auth.User'
+
+if DEBUG:
+    import mimetypes
+    mimetypes.add_type("text/javascript", ".js", True)
