@@ -1,5 +1,0 @@
-# Those files include secret information. They must be recreated when cloned from Git.
-# There are samples on those files in the samples folder
-
-reset_users.sql
-mariadb.cnf

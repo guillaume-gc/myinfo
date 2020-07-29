@@ -1,5 +1,6 @@
 [client]
 database = myinfo
+host = localhost
 user = myinfo
 password = myinfo
 default-character-set = utf8
