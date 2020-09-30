@@ -25,7 +25,7 @@ SECRET_KEY = '5+re^9#cfv==lwwv(@6uv92c(_ww5i%05q+e&+)&cq*97t=kxs'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -93,11 +93,12 @@ WSGI_APPLICATION = 'myinfo.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS': {
-            'read_default_file': 'database/mariadb.cnf',
-            'init_command': "SET default_storage_engine=INNODB; SET sql_mode='STRICT_TRANS_TABLES';",
-        },
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'myinfo_db',
+        'USER': 'admin',
+        'PASSWORD': 'admin',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
 
