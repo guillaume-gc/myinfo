@@ -1,0 +1,11 @@
+# Vagrant
+/.vagrant
+Vagrantfile
+
+# Git
+/.git
+.gitattribute
+.gitignore
+
+# Python
+/venv
