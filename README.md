@@ -33,7 +33,7 @@ Application address should be `http://localhost:8000` / `http://127.0.0.1:8000`.
 Warning: not yet tested.
 
 - Clone the directory.
-- (optionnal but recommanded) Create a virtual Python environment.
+- (optionnal but recommanded) Create a [virtual Python environment](https://docs.python.org/3/tutorial/venv.html).
 - Install required Python packages from requirements.txt, using `pip install -r requirements.txt` (from the project directory).
 - Make sure you have a PostgreSQL local server with a database for the myinfo application.
 - Modify the DATABASES variable in myinfo/settings.py to use your PostgreSQL local server.
