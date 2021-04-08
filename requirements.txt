@@ -4,7 +4,7 @@ chardet==3.0.4
 coverage==5.2.1
 coveralls==2.1.2
 defusedxml==0.6.0
-Django==3.1
+Django==3.1.8
 django-allauth==0.42.0
 django-nose==1.4.7
 djangorestframework==3.11.1
